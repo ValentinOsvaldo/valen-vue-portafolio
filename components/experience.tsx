@@ -133,9 +133,6 @@ export function Experience() {
                 <div className="flex-1">
                   <div className="mb-1 flex flex-col gap-1 sm:flex-row sm:items-center sm:gap-3">
                     <div className="flex items-center gap-2">
-                      <div className="flex h-8 w-8 items-center justify-center rounded-md border border-border bg-secondary text-primary">
-                        <exp.icon className="h-4 w-4" />
-                      </div>
                       <h3 className="text-base font-semibold text-foreground">
                         {exp.role}
                       </h3>
