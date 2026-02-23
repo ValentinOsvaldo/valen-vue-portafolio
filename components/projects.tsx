@@ -78,7 +78,7 @@ const projects: Project[] = [
 
 export function Projects() {
   const { resolvedTheme } = useTheme()
-  const isDark = resolvedTheme === "dark"
+  const isDark = (resolvedTheme ?? "dark") === "dark"
 
   return (
     <section id="work" className="px-6 py-24">

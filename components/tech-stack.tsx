@@ -104,7 +104,7 @@ function getThemeIcon(icon: ThemeAwareIcon, isDark: boolean): SvglIcon {
 
 export function TechStack() {
   const { resolvedTheme } = useTheme();
-  const isDark = resolvedTheme === 'dark';
+  const isDark = (resolvedTheme ?? 'dark') === 'dark';
 
   return (
     <section id="stack" className="px-6 py-24">

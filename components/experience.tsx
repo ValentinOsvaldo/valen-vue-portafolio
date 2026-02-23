@@ -103,7 +103,7 @@ const experiences: ExperienceItem[] = [
 
 export function Experience() {
   const { resolvedTheme } = useTheme()
-  const isDark = resolvedTheme === "dark"
+  const isDark = (resolvedTheme ?? "dark") === "dark"
 
   return (
     <section id="experience" className="px-6 py-24">
