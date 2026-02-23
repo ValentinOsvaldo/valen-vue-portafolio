@@ -5,9 +5,9 @@ import { useTheme } from "next-themes"
 import { Command, Download, Menu, Moon, Sun, X } from "lucide-react"
 
 const navLinks = [
-  { label: "Work", href: "#work" },
-  { label: "Stack", href: "#stack" },
   { label: "Experience", href: "#experience" },
+  { label: "Stack", href: "#stack" },
+  { label: "Work", href: "#work" },
   { label: "Connect", href: "#connect" },
 ]
 
