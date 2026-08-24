@@ -4,6 +4,7 @@ import type { SVGProps } from 'react';
 import { useTheme } from 'next-themes';
 import { Layout, Server, Wrench } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
+import { ScrollReveal } from '@/components/scroll-reveal';
 import {
   AmazonWebServicesDark,
   AmazonWebServicesLight,
@@ -122,8 +123,8 @@ export function TechStack() {
         </div>
 
         <div className="grid gap-8 md:grid-cols-3">
-          {stackData.map((category) => (
-            <div key={category.title}>
+          {stackData.map((category, categoryIndex) => (
+            <ScrollReveal key={category.title} index={categoryIndex}>
               <div className="mb-4 flex items-center gap-2">
                 <category.icon className="h-4 w-4 text-primary" />
                 <h3 className="font-mono text-sm font-medium uppercase tracking-wider text-foreground">
@@ -136,7 +137,7 @@ export function TechStack() {
                   return (
                   <div
                     key={item.name}
-                    className="hover-glow group flex items-center gap-3 rounded-lg border border-border bg-card p-3 transition-all duration-200 hover:border-primary/30 hover:bg-secondary"
+                    className="hover-glow group flex items-center gap-3 rounded-lg border border-border bg-card p-3 transition-[border-color,background-color] duration-200 ease-out hover:border-primary/30 hover:bg-secondary"
                   >
                     <div className="flex h-8 w-8 items-center justify-center rounded-md bg-secondary text-muted-foreground transition-colors group-hover:bg-primary/10 group-hover:text-primary">
                       <Icon className="h-4 w-4" />
@@ -148,7 +149,7 @@ export function TechStack() {
                   );
                 })}
               </div>
-            </div>
+            </ScrollReveal>
           ))}
         </div>
       </div>

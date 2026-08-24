@@ -43,6 +43,7 @@ import {
   Workflow,
 } from "lucide-react"
 import type { LucideIcon } from "lucide-react"
+import { ScrollReveal } from "@/components/scroll-reveal"
 
 /** SVGL components: (props: SVGProps<SVGSVGElement>) => JSX.Element */
 type SvglIcon = (props: SVGProps<SVGSVGElement>) => React.JSX.Element
@@ -85,15 +86,15 @@ function getThemeIcon(icon: ThemeAwareIcon, isDark: boolean): IconComponent {
 
 const processBadges = [
   {
-    name: "CI/CD con GitHub Actions",
+    name: "CI/CD with GitHub Actions",
     icon: { dark: GitHubDark, light: GitHubLight },
   },
   {
-    name: "Testing automatizado",
+    name: "Automated testing",
     icon: FlaskConical,
   },
   {
-    name: "IA y agentes en el flujo de desarrollo",
+    name: "AI and agents in the dev workflow",
     icon: Bot,
   },
 ]
@@ -101,9 +102,9 @@ const processBadges = [
 const projects: Project[] = [
   {
     title: "JobTracker",
-    badge: "El proyecto más grande hasta ahora",
+    badge: "The biggest project so far",
     description:
-      "App de búsqueda de empleo que combina web scraping con inteligencia artificial. Un scraper en Python/FastAPI (Jobspy) recolecta vacantes, y un motor de IA (Gemini) califica qué tan bien encaja cada oferta con el perfil del usuario. Soporta múltiples perfiles de búsqueda por usuario, cada uno con su propio scoring.",
+      "Job search app that combines web scraping with artificial intelligence. A Python/FastAPI scraper (Jobspy) collects job listings, and an AI engine (Gemini) scores how well each listing fits the user's profile. Supports multiple search profiles per user, each with its own scoring.",
     techBadges: [
       { name: "pnpm Workspaces", icon: { dark: PnpmDark, light: PnpmLight } },
       { name: "NestJS", icon: NestJS },
@@ -119,14 +120,14 @@ const projects: Project[] = [
       "https://sggszprqkyrrhoafpzlx.supabase.co/storage/v1/object/public/placeholders/Screenshot%202026-08-06%20125339.png",
     ],
     links: [],
-    unavailableNote: "Sin demo ni repositorio público por ahora",
+    unavailableNote: "No demo or public repository yet",
     icon: Layers,
     span: "wide",
   },
   {
     title: "Codetaria",
     description:
-      "Plataforma para aprender programación y SQL con mecánicas de videojuego (puntos, retos, recompensas). Incluye editor de código interactivo y ejecución real de SQL en el navegador vía SQLite/WASM.",
+      "Platform for learning programming and SQL with video-game mechanics (points, challenges, rewards). Includes an interactive code editor and real SQL execution in the browser via SQLite/WASM.",
     techBadges: [
       { name: "Next.js", icon: Nextjs },
       { name: "HeroUI", icon: { dark: HeroUIDark, light: HeroUILight } },
@@ -138,7 +139,7 @@ const projects: Project[] = [
       "https://sggszprqkyrrhoafpzlx.supabase.co/storage/v1/object/public/placeholders/Screenshot%202026-08-06%20125940.png",
     ],
     links: [
-      { label: "Sitio", href: "https://codetaria.vercel.app/", icon: ExternalLink },
+      { label: "Site", href: "https://codetaria.vercel.app/", icon: ExternalLink },
       { label: "Repo", href: "https://github.com/ValentinOsvaldo/codetaria", icon: Github },
     ],
     icon: GraduationCap,
@@ -147,7 +148,7 @@ const projects: Project[] = [
   {
     title: "Subscription Manager",
     description:
-      "Administra suscripciones a servicios digitales, ya sea de forma individual o compartida con familiares/grupos.",
+      "Manages subscriptions to digital services, either individually or shared with family/groups.",
     techBadges: [
       { name: "Next.js", icon: Nextjs },
       { name: "shadcn/ui", icon: { dark: ShadcnUiDark, light: ShadcnUiLight } },
@@ -159,16 +160,16 @@ const projects: Project[] = [
       "https://sggszprqkyrrhoafpzlx.supabase.co/storage/v1/object/public/placeholders/Screenshot%202026-08-06%20130034.png",
     ],
     links: [
-      { label: "Sitio", href: "https://subscription-manager-zeta-weld.vercel.app/", icon: ExternalLink },
+      { label: "Site", href: "https://subscription-manager-zeta-weld.vercel.app/", icon: ExternalLink },
     ],
     demoCredentials: "demo@valen.com / 1234567890",
     icon: Receipt,
     span: "default",
   },
   {
-    title: "Cotizador para negocios pequeños",
+    title: "Quoting Tool for Small Businesses",
     description:
-      "Herramienta para registrar productos y servicios y generar cotizaciones profesionales listas para imprimir, pensada para pequeños negocios.",
+      "Tool for recording products and services and generating professional, print-ready quotes, built for small businesses.",
     techBadges: [
       { name: "Nuxt 3", icon: Nuxt },
       { name: "Drizzle", icon: { dark: DrizzleORMDark, light: DrizzleORMLight } },
@@ -181,7 +182,7 @@ const projects: Project[] = [
       "https://sggszprqkyrrhoafpzlx.supabase.co/storage/v1/object/public/placeholders/Screenshot%202026-08-06%20124113.png",
     ],
     links: [],
-    unavailableNote: "Sin demo ni repositorio aún",
+    unavailableNote: "No demo or repository yet",
     icon: Calculator,
     span: "wide",
   },
@@ -193,30 +194,36 @@ function ProjectGallery({ title, images }: { title: string; images: string[] }) 
   return (
     <div className="relative">
       <div className="relative aspect-video w-full overflow-hidden bg-secondary">
-        <Image
-          src={images[active]}
-          alt={`Captura de pantalla de ${title}`}
-          fill
-          sizes="(min-width: 768px) 50vw, 100vw"
-          className="object-cover object-top"
-        />
+        {images.map((src, i) => (
+          <Image
+            key={src}
+            src={src}
+            alt={`Screenshot of ${title}`}
+            fill
+            sizes="(min-width: 768px) 50vw, 100vw"
+            priority={i === 0}
+            className={`object-cover object-top transition-opacity duration-200 ease-out motion-reduce:duration-100 ${
+              i === active ? "opacity-100" : "opacity-0"
+            }`}
+          />
+        ))}
       </div>
 
       {images.length > 1 && (
         <>
           <button
             type="button"
-            aria-label="Imagen anterior"
+            aria-label="Previous image"
             onClick={() => setActive((i) => (i - 1 + images.length) % images.length)}
-            className="absolute left-2 top-1/2 flex h-7 w-7 -translate-y-1/2 items-center justify-center rounded-full border border-border bg-background/80 text-foreground opacity-0 backdrop-blur transition-opacity group-hover:opacity-100 hover:bg-secondary"
+            className="absolute left-2 top-1/2 flex h-7 w-7 -translate-y-1/2 items-center justify-center rounded-full border border-border bg-background/80 text-foreground opacity-100 backdrop-blur transition-[opacity,transform] duration-150 ease-out hover:bg-secondary active:scale-[0.9] hover-fine:opacity-0 hover-fine:group-hover:opacity-100"
           >
             <ChevronLeft className="h-4 w-4" />
           </button>
           <button
             type="button"
-            aria-label="Siguiente imagen"
+            aria-label="Next image"
             onClick={() => setActive((i) => (i + 1) % images.length)}
-            className="absolute right-2 top-1/2 flex h-7 w-7 -translate-y-1/2 items-center justify-center rounded-full border border-border bg-background/80 text-foreground opacity-0 backdrop-blur transition-opacity group-hover:opacity-100 hover:bg-secondary"
+            className="absolute right-2 top-1/2 flex h-7 w-7 -translate-y-1/2 items-center justify-center rounded-full border border-border bg-background/80 text-foreground opacity-100 backdrop-blur transition-[opacity,transform] duration-150 ease-out hover:bg-secondary active:scale-[0.9] hover-fine:opacity-0 hover-fine:group-hover:opacity-100"
           >
             <ChevronRight className="h-4 w-4" />
           </button>
@@ -225,9 +232,9 @@ function ProjectGallery({ title, images }: { title: string; images: string[] }) 
               <button
                 key={i}
                 type="button"
-                aria-label={`Ver imagen ${i + 1}`}
+                aria-label={`View image ${i + 1}`}
                 onClick={() => setActive(i)}
-                className={`h-1.5 rounded-full transition-all ${
+                className={`h-1.5 rounded-full transition-[width,background-color,transform] duration-200 ease-out active:scale-90 ${
                   i === active ? "w-4 bg-primary" : "w-1.5 bg-background/70"
                 }`}
               />
@@ -260,7 +267,7 @@ export function Projects() {
           <div className="mt-5 flex flex-wrap items-center gap-2">
             <span className="mr-1 inline-flex items-center gap-1.5 font-mono text-xs text-muted-foreground">
               <Workflow className="h-3.5 w-3.5" />
-              En todos aplico:
+              Applied across all of these:
             </span>
             {processBadges.map((badge) => {
               const Icon = getThemeIcon(badge.icon, isDark)
@@ -278,13 +285,13 @@ export function Projects() {
         </div>
 
         <div className="grid gap-4 md:grid-cols-2">
-          {projects.map((project) => (
-            <div
+          {projects.map((project, index) => (
+            <ScrollReveal
               key={project.title}
-              className={`group hover-glow relative flex flex-col overflow-hidden rounded-lg border border-border bg-card transition-all duration-300 hover:border-primary/30 ${
-                project.span === "wide" ? "md:col-span-2" : ""
-              }`}
+              index={index}
+              className={project.span === "wide" ? "md:col-span-2" : ""}
             >
+            <div className="group hover-glow relative flex h-full flex-col overflow-hidden rounded-lg border border-border bg-card transition-[border-color] duration-300 ease-out hover:border-primary/30">
               <ProjectGallery title={project.title} images={project.images} />
 
               <div className="flex flex-1 flex-col justify-between p-6">
@@ -333,7 +340,7 @@ export function Projects() {
                         href={link.href}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1.5 rounded-md border border-border bg-secondary px-3 py-1.5 font-mono text-xs font-medium text-foreground transition-colors hover:border-primary/30 hover:bg-border hover:text-primary"
+                        className="inline-flex items-center gap-1.5 rounded-md border border-border bg-secondary px-3 py-1.5 font-mono text-xs font-medium text-foreground transition-[border-color,background-color,color,transform] duration-150 ease-out hover:border-primary/30 hover:bg-border hover:text-primary active:scale-[0.97]"
                       >
                         <link.icon className="h-3.5 w-3.5" />
                         {link.label}
@@ -354,6 +361,7 @@ export function Projects() {
                 </div>
               </div>
             </div>
+            </ScrollReveal>
           ))}
         </div>
       </div>

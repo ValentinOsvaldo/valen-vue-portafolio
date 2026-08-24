@@ -1,7 +1,8 @@
 "use client"
 
-import type { SVGProps } from "react"
+import { useEffect, useRef, useState, type SVGProps } from "react"
 import { useTheme } from "next-themes"
+import { ScrollReveal } from "@/components/scroll-reveal"
 import {
   CSS,
   Docker,
@@ -104,6 +105,24 @@ const experiences: ExperienceItem[] = [
 export function Experience() {
   const { resolvedTheme } = useTheme()
   const isDark = (resolvedTheme ?? "dark") === "dark"
+  const lineRef = useRef<HTMLDivElement>(null)
+  const [lineVisible, setLineVisible] = useState(false)
+
+  useEffect(() => {
+    const el = lineRef.current
+    if (!el) return
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setLineVisible(true)
+          observer.disconnect()
+        }
+      },
+      { threshold: 0.1 }
+    )
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [])
 
   return (
     <section id="experience" className="px-6 py-24">
@@ -119,11 +138,16 @@ export function Experience() {
 
         <div className="relative">
           {/* Timeline line */}
-          <div className="absolute left-[7px] top-2 bottom-2 w-px bg-border md:left-[7px]" />
+          <div
+            ref={lineRef}
+            className={`absolute left-[7px] top-2 bottom-2 w-px bg-border transition-[clip-path] duration-700 ease-emphasized-in-out motion-reduce:duration-150 md:left-[7px] ${
+              lineVisible ? "[clip-path:inset(0_0_0%_0)]" : "[clip-path:inset(0_0_100%_0)]"
+            }`}
+          />
 
           <div className="flex flex-col gap-12">
             {experiences.map((exp, i) => (
-              <div key={i} className="relative flex gap-6 pl-8 md:pl-8">
+              <ScrollReveal key={i} index={i} className="relative flex gap-6 pl-8 md:pl-8">
                 {/* Timeline dot */}
                 <div className="absolute left-0 top-1.5 flex h-[15px] w-[15px] items-center justify-center">
                   <div className="h-2.5 w-2.5 rounded-full border-2 border-primary bg-background" />
@@ -162,7 +186,7 @@ export function Experience() {
                     })}
                   </div>
                 </div>
-              </div>
+              </ScrollReveal>
             ))}
           </div>
         </div>

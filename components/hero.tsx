@@ -62,14 +62,14 @@ export function Hero() {
           <div className="mt-8 flex items-center gap-4">
             <a
               href="#work"
-              className="inline-flex items-center gap-2 rounded-md bg-primary px-5 py-2.5 font-mono text-sm font-medium text-primary-foreground transition-all hover:brightness-110"
+              className="inline-flex items-center gap-2 rounded-md bg-primary px-5 py-2.5 font-mono text-sm font-medium text-primary-foreground transition-[filter,transform] duration-150 ease-out hover:brightness-110 active:scale-[0.97]"
             >
               View Work
               <ArrowDown className="h-4 w-4" />
             </a>
             <a
               href="#connect"
-              className="inline-flex items-center gap-2 rounded-md border border-border bg-secondary px-5 py-2.5 font-mono text-sm text-foreground transition-colors hover:bg-border"
+              className="inline-flex items-center gap-2 rounded-md border border-border bg-secondary px-5 py-2.5 font-mono text-sm text-foreground transition-[background-color,transform] duration-150 ease-out hover:bg-border active:scale-[0.97]"
             >
               Get in Touch
             </a>
