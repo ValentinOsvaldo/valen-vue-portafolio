@@ -1,7 +1,6 @@
 "use client"
 
-import { useState, type SVGProps } from "react"
-import Image from "next/image"
+import type { SVGProps } from "react"
 import { useTheme } from "next-themes"
 import {
   DrizzleORMDark,
@@ -30,8 +29,6 @@ import {
 import {
   Bot,
   Calculator,
-  ChevronLeft,
-  ChevronRight,
   ExternalLink,
   FlaskConical,
   GraduationCap,
@@ -69,7 +66,6 @@ type Project = {
   badge?: string
   description: string
   techBadges: ProjectTag[]
-  images: string[]
   links: ProjectLink[]
   demoCredentials?: string
   unavailableNote?: string
@@ -116,9 +112,6 @@ const projects: Project[] = [
       { name: "JWT / Passport", icon: JWT },
       { name: "Gemini", icon: Gemini },
     ],
-    images: [
-      "https://sggszprqkyrrhoafpzlx.supabase.co/storage/v1/object/public/placeholders/Screenshot%202026-08-06%20125339.png",
-    ],
     links: [],
     unavailableNote: "No demo or public repository yet",
     icon: Layers,
@@ -134,9 +127,6 @@ const projects: Project[] = [
       { name: "Supabase", icon: Supabase },
       { name: "SQLite/WASM", icon: SQLite },
       { name: "PWA" },
-    ],
-    images: [
-      "https://sggszprqkyrrhoafpzlx.supabase.co/storage/v1/object/public/placeholders/Screenshot%202026-08-06%20125940.png",
     ],
     links: [
       { label: "Site", href: "https://codetaria.vercel.app/", icon: ExternalLink },
@@ -156,9 +146,6 @@ const projects: Project[] = [
       { name: "Neon", icon: Neon },
       { name: "Fly.io", icon: Fly },
     ],
-    images: [
-      "https://sggszprqkyrrhoafpzlx.supabase.co/storage/v1/object/public/placeholders/Screenshot%202026-08-06%20130034.png",
-    ],
     links: [
       { label: "Site", href: "https://subscription-manager-zeta-weld.vercel.app/", icon: ExternalLink },
     ],
@@ -176,75 +163,12 @@ const projects: Project[] = [
       { name: "Supabase", icon: Supabase },
       { name: "Neon", icon: Neon },
     ],
-    images: [
-      "https://sggszprqkyrrhoafpzlx.supabase.co/storage/v1/object/public/placeholders/Screenshot%202026-08-06%20123941.png",
-      "https://sggszprqkyrrhoafpzlx.supabase.co/storage/v1/object/public/placeholders/Screenshot%202026-08-06%20124101.png",
-      "https://sggszprqkyrrhoafpzlx.supabase.co/storage/v1/object/public/placeholders/Screenshot%202026-08-06%20124113.png",
-    ],
     links: [],
     unavailableNote: "No demo or repository yet",
     icon: Calculator,
     span: "wide",
   },
 ]
-
-function ProjectGallery({ title, images }: { title: string; images: string[] }) {
-  const [active, setActive] = useState(0)
-
-  return (
-    <div className="relative">
-      <div className="relative aspect-video w-full overflow-hidden bg-secondary">
-        {images.map((src, i) => (
-          <Image
-            key={src}
-            src={src}
-            alt={`Screenshot of ${title}`}
-            fill
-            sizes="(min-width: 768px) 50vw, 100vw"
-            priority={i === 0}
-            className={`object-cover object-top transition-opacity duration-200 ease-out motion-reduce:duration-100 ${
-              i === active ? "opacity-100" : "opacity-0"
-            }`}
-          />
-        ))}
-      </div>
-
-      {images.length > 1 && (
-        <>
-          <button
-            type="button"
-            aria-label="Previous image"
-            onClick={() => setActive((i) => (i - 1 + images.length) % images.length)}
-            className="absolute left-2 top-1/2 flex h-7 w-7 -translate-y-1/2 items-center justify-center rounded-full border border-border bg-background/80 text-foreground opacity-100 backdrop-blur transition-[opacity,transform] duration-150 ease-out hover:bg-secondary active:scale-[0.9] hover-fine:opacity-0 hover-fine:group-hover:opacity-100"
-          >
-            <ChevronLeft className="h-4 w-4" />
-          </button>
-          <button
-            type="button"
-            aria-label="Next image"
-            onClick={() => setActive((i) => (i + 1) % images.length)}
-            className="absolute right-2 top-1/2 flex h-7 w-7 -translate-y-1/2 items-center justify-center rounded-full border border-border bg-background/80 text-foreground opacity-100 backdrop-blur transition-[opacity,transform] duration-150 ease-out hover:bg-secondary active:scale-[0.9] hover-fine:opacity-0 hover-fine:group-hover:opacity-100"
-          >
-            <ChevronRight className="h-4 w-4" />
-          </button>
-          <div className="absolute bottom-2 left-1/2 flex -translate-x-1/2 gap-1.5">
-            {images.map((_, i) => (
-              <button
-                key={i}
-                type="button"
-                aria-label={`View image ${i + 1}`}
-                onClick={() => setActive(i)}
-                className={`h-1.5 rounded-full transition-[width,background-color,transform] duration-200 ease-out active:scale-90 ${
-                  i === active ? "w-4 bg-primary" : "w-1.5 bg-background/70"
-                }`}
-              />
-            ))}
-          </div>
-        </>
-      )}
-    </div>
-  )
-}
 
 export function Projects() {
   const { resolvedTheme } = useTheme()
@@ -292,8 +216,6 @@ export function Projects() {
               className={project.span === "wide" ? "md:col-span-2" : ""}
             >
             <div className="group hover-glow relative flex h-full flex-col overflow-hidden rounded-lg border border-border bg-card transition-[border-color] duration-300 ease-out hover:border-primary/30">
-              <ProjectGallery title={project.title} images={project.images} />
-
               <div className="flex flex-1 flex-col justify-between p-6">
                 {/* Header */}
                 <div>

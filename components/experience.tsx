@@ -53,7 +53,15 @@ type ExperienceItem = {
 
 const experiences: ExperienceItem[] = [
   {
-    period: "Feb 2025 – Present",
+    period: "Sep 2026 – Present",
+    role: "Software Engineer",
+    company: "EPAM Systems",
+    icon: Rocket,
+    description: "",
+    tags: [],
+  },
+  {
+    period: "Feb 2025 – Sep 2026",
     role: "Senior Front-End Developer",
     company: "AETO",
     icon: Rocket,
@@ -168,9 +176,11 @@ export function Experience() {
                   <span className="font-mono text-xs text-muted-foreground">
                     {exp.period}
                   </span>
-                  <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                    {exp.description}
-                  </p>
+                  {exp.description && (
+                    <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                      {exp.description}
+                    </p>
+                  )}
                   <div className="mt-3 flex flex-wrap gap-2">
                     {exp.tags.map((tag) => {
                       const Icon = getThemeIcon(tag.icon, isDark)
